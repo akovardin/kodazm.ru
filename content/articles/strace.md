@@ -14,7 +14,7 @@ title = "Strace в 60 строчек код"
 
 Чтобы объяснить некоторые моменты работы [линуксовского ptrace](http://man7.org/linux/man-pages/man2/ptrace.2.html я решила написать свою базовую реализацию [strace](http://man7.org/linux/man-pages/man1/strace.1.html). И в этой статье я расскажу, как этот самодельный strace работает. Если у вас есть время, то можете посмотреть видео того самого доклада:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/01w7viEZzXQ?start=11" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="935" height="630" src="https://www.youtube.com/embed/01w7viEZzXQ?start=11" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ### Брекпоинт в процессе потомке
 
