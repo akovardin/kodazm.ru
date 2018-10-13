@@ -123,8 +123,6 @@ for {
 
 Наша небольшая утилита работает очень похоже на обычный `strace`. Результаты которая выдает наш код и `strace -c`  для команды `echo hello` практически одинаковые - в обоих случаях список сисколов одинаковый.
 
-<script src="https://asciinema.org/a/TcEvXJvxXS6YyzCtowWpOfq6z.js" id="asciicast-TcEvXJvxXS6YyzCtowWpOfq6z" async></script>
-
 <a href="https://asciinema.org/a/TcEvXJvxXS6YyzCtowWpOfq6z" target="_blank"><img src="https://asciinema.org/a/TcEvXJvxXS6YyzCtowWpOfq6z.png" /></a>
 
 В конечной реализации выводятся параметры для каждого сискола. Если вы тоже хотите это реализовать, то вам нужно получать чуть [больше информации из реестра](http://syscalls.kernelgrok.com/).
