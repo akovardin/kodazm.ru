@@ -12,7 +12,7 @@ title = "Strace в 60 строчек код"
 
 Эта статья написана по мотивам моего доклада "[A Go Programmer’s Guide to Syscalls](https://gophercon.com/speakers/27)". Вы можете посмотреть код [тут](http://github.com/lizrice/strace-from-scratch).
 
-Чтобы объяснить некоторые моменты работы [линуксовского ptrace](http://man7.org/linux/man-pages/man2/ptrace.2.html я решила написать свою базовую реализацию [strace](http://man7.org/linux/man-pages/man1/strace.1.html). И в этой статье я расскажу, как этот самодельный strace работает. Если у вас есть время, то можете посмотреть видео того самого доклада:
+Чтобы объяснить некоторые моменты работы [линуксовского ptrace](http://man7.org/linux/man-pages/man2/ptrace.2.html) я решила написать свою базовую реализацию [strace](http://man7.org/linux/man-pages/man1/strace.1.html). И в этой статье я расскажу, как этот самодельный strace работает. Если у вас есть время, то можете посмотреть видео того самого доклада:
 
 <iframe width="935" height="630" src="https://www.youtube.com/embed/01w7viEZzXQ?start=11" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
