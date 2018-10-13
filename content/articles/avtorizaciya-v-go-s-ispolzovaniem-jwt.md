@@ -45,23 +45,23 @@ title = "Авторизация в Go с использованием JWT"
 // Импортируем необходимые зависимости. Мы будем использовать
 // пакет из стандартной библиотеки и пакет от gorilla
 import (
-    "net/http"
+​    "net/http"
 
     "github.com/gorilla/mux"
 )
 
 func main() {
-    // Инициализируем gorilla/mux роутер
-    r := mux.NewRouter()
+​    // Инициализируем gorilla/mux роутер
+​    r := mux.NewRouter()
 
     // Страница по умолчанию для нашего сайта это простой html.
     r.Handle("/", http.FileServer(http.Dir("./views/")))
-
+    
     // Статику (картинки, скрипти, стили) будем раздавать 
     // по определенному роуту /static/{file} 
     r.PathPrefix("/static/").Handler(http.StripPrefix("/static/", 
                                 http.FileServer(http.Dir("./static/"))))
-
+    
     // Наше приложение запускается на 3000 порту. 
     // Для запуска мы указываем порт и наш роутер
     http.ListenAndServe(":3000", r)
@@ -97,7 +97,7 @@ func main() {
     r.Handle("/status", NotImplemented).Methods("GET")
     r.Handle("/products", NotImplemented).Methods("GET")
     r.Handle("/products/{slug}/feedback", NotImplemented).Methods("POST")
-
+    
     //...
 }
 
@@ -119,40 +119,40 @@ var NotImplemented = http.HandlerFunc(func(w http.ResponseWriter, r *http.Reques
 // Создадим новый тип Product. Мы будем использовать
 // этот тип для для хранения информации о опытах VR
 type Product struct {
-    Id int
-    Name string
-    Slug string
-    Description string
+​    Id int
+​    Name string
+​    Slug string
+​    Description string
 }
 
 // Создадим наш каталог VR экспериментов и сохраним его в виде слайса.
 var products = []Product{
-    Product{Id: 1, Name: "Hover Shooters", Slug: "hover-shooters", 
-    Description : "Shoot your way to the top on 14 different hoverboards"},
-    Product{Id: 2, Name: "Ocean Explorer", Slug: "ocean-explorer", 
-    Description : "Explore the depths of the sea in this one of a kind"},
-    Product{Id: 3, Name: "Dinosaur Park", Slug : "dinosaur-park", 
-    Description : "Go back 65 million years in the past and ride a T-Rex"},
-    Product{Id: 4, Name: "Cars VR", Slug : "cars-vr", 
-    Description: "Get behind the wheel of the fastest cars in the world."},
-    Product{Id: 5, Name: "Robin Hood", Slug: "robin-hood", 
-    Description : "Pick up the bow and arrow and master the art of archery"},
-    Product{Id: 6, Name: "Real World VR", Slug: "real-world-vr", 
-    Description : "Explore the seven wonders of the world in VR"}
+​    Product{Id: 1, Name: "Hover Shooters", Slug: "hover-shooters", 
+​    Description : "Shoot your way to the top on 14 different hoverboards"},
+​    Product{Id: 2, Name: "Ocean Explorer", Slug: "ocean-explorer", 
+​    Description : "Explore the depths of the sea in this one of a kind"},
+​    Product{Id: 3, Name: "Dinosaur Park", Slug : "dinosaur-park", 
+​    Description : "Go back 65 million years in the past and ride a T-Rex"},
+​    Product{Id: 4, Name: "Cars VR", Slug : "cars-vr", 
+​    Description: "Get behind the wheel of the fastest cars in the world."},
+​    Product{Id: 5, Name: "Robin Hood", Slug: "robin-hood", 
+​    Description : "Pick up the bow and arrow and master the art of archery"},
+​    Product{Id: 6, Name: "Real World VR", Slug: "real-world-vr", 
+​    Description : "Explore the seven wonders of the world in VR"}
 }
 
 // Хендлер StatusHandler будет срабатывать в тот момент момент, когда 
 // пользователь обращается по роуту /status. Этот хендлер просто возвращает
 // строку "API is up and running".
 var StatusHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request){
-    w.Write([]byte("API is up and running"))
+​    w.Write([]byte("API is up and running"))
 })
 
 // ProductsHandler срабатывает в момент вызова роута /products
 // Этот хендлер возвращает пользователю список продуктов для оценки.
 var ProductsHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request){
-    // Конвертируем наш слайс продуктов в json
-    payload, _ := json.Marshal(products)
+​    // Конвертируем наш слайс продуктов в json
+​    payload, _ := json.Marshal(products)
 
     w.Header().Set("Content-Type", "application/json")
     w.Write([]byte(payload))
@@ -167,17 +167,17 @@ var AddFeedbackHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
   slug := vars["slug"]
 
   for _, p := range products {
-    if p.Slug == slug {
-        product = p
-    }
+​    if p.Slug == slug {
+​        product = p
+​    }
   }
 
   w.Header().Set("Content-Type", "application/json")
   if product.Slug != "" {
-    payload, _ := json.Marshal(product)
-    w.Write([]byte(payload))
+​    payload, _ := json.Marshal(product)
+​    w.Write([]byte(payload))
   } else {
-    w.Write([]byte("Product Not Found"))
+​    w.Write([]byte("Product Not Found"))
   }
 })
 
@@ -204,17 +204,17 @@ var AddFeedbackHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Re
 <pre><code>package main
 
 import(
-    //...
-    // Пакет с набором готовых хендлеров
-    "github.com/gorilla/handlers"
-    //...
+​    //...
+​    // Пакет с набором готовых хендлеров
+​    "github.com/gorilla/handlers"
+​    //...
 )
 
 func main(){
-    //...
-    // Обернем наш роутер функцией LoggingHandler. 
-    // Таким образом нам будет доступен каждый запрос.
-    http.ListenAndServe(":3000", handlers.LoggingHandler(os.Stdout, r))
+​    //...
+​    // Обернем наш роутер функцией LoggingHandler. 
+​    // Таким образом нам будет доступен каждый запрос.
+​    http.ListenAndServe(":3000", handlers.LoggingHandler(os.Stdout, r))
 }
 </code></pre>
 
@@ -243,15 +243,15 @@ func main(){
                                             r *http.Request){
         // Создаем новый токен
         token := jwt.New(jwt.SigningMethodHS256)
-
+    
         // Устанавливаем набор параметров для токена
         token.Claims["admin"] = true
         token.Claims["name"] = "Ado Kukic"
         token.Claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
-
+    
         // Подписываем токен нашим секретным ключем
         tokenString, _ := token.SignedString(mySigningKey)
-
+    
         // Отдаем токен клиенту
         w.Write([]byte(tokenString))
     })
