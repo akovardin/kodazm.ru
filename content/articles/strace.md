@@ -6,7 +6,7 @@ title = "Strace в 60 строчек код"
 
 +++
 
-![](/img/sycall/title.png)
+![](/img/syscall/title.png)
 
 Перевод статьи Liz Rice "[Strace in 60 lines of Go](https://hackernoon.com/strace-in-60-lines-of-go-b4b76e3ecd64)".
 
