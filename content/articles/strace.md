@@ -1,9 +1,7 @@
 +++
-
 date = "2018-10-13T19:45:02+03:00"
 draft = false
 title = "Strace в 60 строчек код"
-
 +++
 
 ![](/img/syscall/title.png)
