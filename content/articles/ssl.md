@@ -10,6 +10,8 @@ title = "Бесплатные и автоматические SSL сертифи
 
 ![](/img/ssl/ssl-title.png)
 
+Перевод статьи "[Free and Automated SSL Certificates with Go](https://goenning.net/2017/11/08/free-and-automated-ssl-certificates-with-go/)"
+
 Сейчас без HTTPS никуда. И это связанно не только с безопасностью. Поисковоки лучше ранжируют сайты работающие по HTTPS в отличии от обычного HTTP.
 
 Уже не то время чтобы искаь оправдания и не использовать HTTPS на вашем сайте.
