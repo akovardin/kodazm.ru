@@ -83,3 +83,30 @@ func main() {
 
 NGINX это проверенная рабочая лошадка всея интенета. И он поддерживает бесшовное обновление. Мы используем его в Cloudflare и уверены в его реализации.
 
+Сервер написан по принципу процесс на одно ядро. Это значит, что вместо запуска множества тредов, NGINX запускает по одному процессу на каждое логическое ядро. Дополнительно есть мастер процесс, который управляет бесшовными обновлениями.
+
+Мастер процесс отвечает за создание сокетов используемых NGINX и разделение их между воркерами. Все делается довольно прямолинейно: очищается бит `FD_CLOEXEC` для всех прослушиваемых сокетов. Поэтому сокеты не закрываются после вызова сискола `exec()`. Дальше мастер исполняет обычную пляску с `fork()` / `exec()`, передавая номера файловых дискрипторов через переменные окружения.
+
+Механизм бесшовного обновления работает очень похоже. Сначала создается новый мастер процесс(PID 1176) - [это описано в документации](http://nginx.org/en/docs/control.html#upgrade). Он наследует все прослушиваемые сокеты от старого мастер процесса(PID 1017) как это делают воркеры. И потом запускает новых воркеров:
+
+```
+ CGroup: /system.slice/nginx.service
+       	├─1017 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+       	├─1019 nginx: worker process
+       	├─1021 nginx: worker process
+       	├─1024 nginx: worker process
+       	├─1026 nginx: worker process
+       	├─1027 nginx: worker process
+       	├─1028 nginx: worker process
+       	├─1029 nginx: worker process
+       	├─1030 nginx: worker process
+       	├─1176 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+       	├─1187 nginx: worker process
+       	├─1188 nginx: worker process
+       	├─1190 nginx: worker process
+       	├─1191 nginx: worker process
+       	├─1192 nginx: worker process
+       	├─1193 nginx: worker process
+       	├─1194 nginx: worker process
+       	└─1195 nginx: worker process
+```
