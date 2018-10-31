@@ -245,7 +245,7 @@ fmt.Printf("with Num Iterations: %d\n", maxAccuracyIter)
 <p>Тем не менее, у нас получилось добиться необходимых результатов. Пример вывода нашей программы:</p>
 
 <pre><code>Running Logistic Regression...
-Maximum accuracy: 0.91
+Maximum accuracy.91
 
 with Model: h(θ,x) = 1 / (1 + exp(-θx))
 θx = -1.286 + 0.04981(x[1]) + 0.01461(x[2])
@@ -258,12 +258,12 @@ True Negatives: 9
 False Positives: 2
 False Negatives: 1
 
-Recall: 0.96
-Precision: 0.92
-Accuracy: 0.91
+Recall.96
+Precision.92
+Accuracy.91
 
 
-with Decision Boundary: 0.91
+with Decision Boundary.91
 with Num Iterations: 2600
 </code></pre>
 

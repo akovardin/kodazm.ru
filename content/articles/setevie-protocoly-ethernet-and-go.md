@@ -46,7 +46,7 @@ f := &ethernet.Frame{
     // Указываем нашу машину как отправителя.
     Source: net.HardwareAddr{0xde, 0xad, 0xbe, 0xef, 0xde, 0xad},
     // Указываем неиспользуемое значение EtherType.
-    EtherType: 0xcccc,
+    EtherTypexcccc,
     // Отправляем простое сообщение.
     Payload: []byte("hello world"),
 }
@@ -97,7 +97,7 @@ f := &ethernet.Frame{
         ID: 10,
     }},
     // Указываем неиспользуемый EtherType.
-    EtherType: 0xcccc,
+    EtherTypexcccc,
     // Отправляем простое сообщение.
     Payload: []byte("hello world"),
 }

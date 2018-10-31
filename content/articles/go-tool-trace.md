@@ -17,7 +17,7 @@ title = "go tool trace"
 
 Пользовательский интерфейс `go tool trace`, по сути, это веб приложение. Ниже я разместил реальный пример такого приложения. Этот пример визуализирует работу [параллельной быстрой сортировки](https://gist.github.com/WillSewell/3246161e67f897a530a8120db8917bee):
 
-<iframe src="/trace.html" align="center" width="100%" height="578px" scrolling="no" style="border: solid lightgrey; box-shadow: 0 0 20px lightgrey; margin: 2em 0;"></iframe>
+<iframe src="/trace.html" align="center" width="100%" height="578px" scrolling="no" style="border: solid lightgrey; box-shadow 0 20px lightgrey; margin: 2em 0;"></iframe>
 
 Давайте немного поиграемся с этим примером. Для отображения справки, нажмите "?" в правом верхнем углу. Вы можете кликать почти по любому элементу и смотреть дополнительную информацию. Давайте поиграем в небольшую викторину. Попробуйте ответить на вопросы ниже не подглядывая в ответы.
 

@@ -222,7 +222,7 @@ ToolButton {
             border.color: &quot;#888&quot;
             radius: 4
             gradient: Gradient {
-                GradientStop { position: 0 ; color: control.pressed ? &quot;#ccc&quot; : &quot;#eee&quot; }
+                GradientStop { position ; color: control.pressed ? &quot;#ccc&quot; : &quot;#eee&quot; }
                 GradientStop { position: 1 ; color: control.pressed ? &quot;#aaa&quot; : &quot;#ccc&quot; }
             }
         }
