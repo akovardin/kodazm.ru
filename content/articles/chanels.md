@@ -64,7 +64,7 @@ chan int {
         fieldalign: 8,
         kind: 130,
         alg: *(*runtime.typeAlg)(0x568eb0),
-        gcdata: 1,
+        gcdata: *1,
         str: 1015,
         ptrToThis: 45376,
     },
@@ -72,11 +72,11 @@ chan int {
     recvx: 0,
     recvq: waitq<int> {
         first: *sudog<int> nil,
-        first: *sudog<int> nil,
+        lsat: *sudog<int> nil,
     },
     sendq: waitq<int> {
         first: *sudog<int> nil,
-        first: *sudog<int> nil,
+        last: *sudog<int> nil,
     },
     lock: runtime.mutex {key:0},
 }
@@ -202,7 +202,7 @@ chan int {
         fieldalign: 8,
         kind: 130,
         alg: *(*runtime.typeAlg)(0x568eb0),
-        gcdata: 1,
+        gcdata: *1,
         str: 1015,
         ptrToThis: 45376,
     },
@@ -214,7 +214,7 @@ chan int {
     },
     sendq: waitq<int> {
         first: *sudog<int> nil,
-        first: *sudog<int> nil,
+        last: *sudog<int> nil,
     },
     lock: runtime.mutex {key:0},
 }
@@ -287,3 +287,110 @@ func send(c *hchan, sg *sudog, ep unsafe.Pointer, unlockf func(), skip int) {
 
 #### Отправка в буфферизированный канал когда в буффере еще есть место
 
+```go
+if c.qcount < c.dataqsiz {
+    // Space is available in the channel buffer. Enqueue the element to send.
+    qp := chanbuf(c, c.sendx)
+    if raceenabled {
+        raceacquire(qp)
+        racerelease(qp)
+    }
+    typedmemmove(c.elemtype, qp, ep)
+    c.sendx++
+    if c.sendx == c.dataqsiz {
+        c.sendx = 0
+    }
+    c.qcount++
+    unlock(&c.lock)
+    return true
+}
+```
+
+`chanbuf(c, i)` - доступ к нужному куску памяти. Чтобы определить есть ли свободное место сравниваем `qcount` и `dataqsiz`. Елемент ставится в очередь через копирование памяти на которую указывает `ep` в буффер и нкремент счетчика `sendx`
+
+#### Отправка в канал с заполненным буффером
+
+```go
+// Block on the channel. Some receiver will complete our operation for us.
+gp := getg()
+mysg := acquireSudog()
+mysg.releasetime = 0
+if t0 != 0 {
+    mysg.releasetime = -1
+}
+// No stack splits between assigning elem and enqueuing mysg
+// on gp.waiting where copystack can find it.
+mysg.elem = ep
+mysg.waitlink = nil
+mysg.g = gp
+mysg.isSelect = false
+mysg.c = c
+gp.waiting = mysg
+gp.param = nil
+c.sendq.enqueue(mysg)
+goparkunlock(&c.lock, waitReasonChanSend, traceEvGoBlockSend, 3)
+```
+Получаем объек горутины в текущем стеке. С помощью `acquireSudog` паркуем горутину и добавлем ее `sendq` канала.
+
+#### Отправка в канал. Вводы
+
+* Внутри канала активно используется структура `lock`
+* Запись может происходить напрямую через выбор ожидающей горутины из `recvq` и передачу сообщения непосредственно ей.
+* Если очередт с горутинами пустая, то пытаемся записать сообщение в буффер если он доступен и там есть место. Запись происходит через копирование данных из горутины в буфер.
+* Если буфер заполнен, то данные сохраняются в структуре текущей горутины и горутина блокируется и ставится в очередь `sendq`
+
+Обратите внимание на последний пункт. Это актуально для небуферезированных каналов, даже если к них есть полу `buf`. При отправке сообщения в такой канал оно сохранится в поле `elem` структуры `sudog`.
+
+Давайте рассмотрим еще один пример:
+
+```go
+package main
+
+func goroutineA(c2 chan int) {
+    c2 <- 2
+}
+
+func main() {
+    c2 := make(chan int)
+    go goroutineA(c2)
+
+    for {
+    }
+}
+```
+
+Как выглядит структура `c2` в рантайме?
+
+```
+chan int {
+    qcount: 0,
+    dataqsiz: 0,
+    buf: *[0]int [],
+    elemsize: 8,
+    closed: 0,
+    elemtype: *runtime._type {
+        size: 8,
+        ptrdata: 0,
+        hash: 4149441018,
+        tflag: tflagUncommon|tflagExtraStar|tflagNamed,
+        align: 8,
+        fieldalign: 8,
+        kind: 130,
+        alg: *(*runtime.typeAlg)(0x4bff90),
+        gcdata: *1,
+        str: 775,
+        ptrToThis: 28320,
+    },
+    sendx: 0,
+    recvx: 0,
+    recvq: waitq<int> {
+        first: *sudog<int> nil,
+        last: *sudog<int> nil,
+    },
+    sendq: waitq<int> {
+        first: *(*sudog<int>)(0xc000074000),
+        last: *(*sudog<int>)(0xc000074000),
+    },
+    lock: runtime.mutex {key:0},
+}
+```
