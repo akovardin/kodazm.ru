@@ -394,3 +394,26 @@ chan int {
     lock: runtime.mutex {key:0},
 }
 ```
+
+Видно что когда мы отправляем в канал новое значение `2`, оно не попадает в буфер. Это значение
+сохраняется в структуре `sudog`. Когда горутина `goroutineA` пытается отправить сообщение в канал - еще нет нт одного получателя. Горутина попадает в список `sendq` и блокируется. Можно посмотреть как выглядит структура `sendq` в рантайме:
+
+```
+p c2.sendq
+waitq<int> {
+    first: *sudog<int> {
+        g: *(*runtime.g)(0xc000001080),
+        isSelect: false,
+        next: *runtime.sudog nil,
+        prev: *runtime.sudog nil,
+        elem: 2,
+        acquiretime: 0,
+	    releasetime 0,
+        ticket: 0,
+        parent: *runtime.sudog nil,
+        waitlink: *runtime.sudog nil,
+        waittail: *runtime.sudog nil,
+        c: *(*runtime.hchan)(0xc00001e120),
+    }
+}
+```
