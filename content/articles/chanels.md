@@ -1,5 +1,5 @@
 +++
-date = "2018-11-05T20:53:09+03:00"
+date = "2018-11-01T20:53:09+03:00"
 draft = false
 title = "Погружаемся в каналы"
 +++
@@ -417,3 +417,263 @@ waitq<int> {
     }
 }
 ```
+Все значения в канал передаются по значению. Это важно запомнить. Давайте расмотрим такой пример.
+
+```go
+type user struct {
+    name string
+    age int8
+}
+
+var u = user{name:"Anku", age:25}
+var g := &g
+
+func modifyUser(pu *user) {
+    fmt.Println("modifyUser Receive Value", pu)
+    ou.name = "Anand"
+}
+
+func printUser(u <-chan *user) {
+    time.Sleep(2 * time.Second)
+    fmt.Println("printUser goroutine called", <-u)   
+}
+
+func main() {
+    c := make(chan *user, 5)
+    c <- g
+    fmt.Println(g)
+    // modify g
+    g := &user{name: "Ankur Anand", age:100}
+    go printUser(c)
+    go modifyUser(g)
+    time.Sleep(time.Second * 5)
+    fmt.Println(g)
+}
+```
+
+Что выведет эта программа? Значения передаются через копирование. В нашем случае в канал будет скопировано значение `g`. 
+
+> Не сообщайтесь через разделение памяти. Вместо этого разделяйте память для сообщения
+
+Вот что выведет программа:
+
+```
+&{Ankur 25}
+modifyUser Received Value &{Ankur Anand 100}
+printUser goRoutine called &{Ankur 25}
+&{Anand 100}
+```
+
+![](/img/chanels/3.jpeg)
+
+### Операции чтения из канала
+
+Операция чтения очень похожа на запись.
+
+```go
+func chanrecv(c *hchan, ep unsafe.Pointer, block bool) (selected, received bool) {
+	// raceenabled: don't need to check ep, as it is always on the stack
+	// or is new memory allocated by reflect.
+
+	if debugChan {
+		print("chanrecv: chan=", c, "\n")
+	}
+
+	if c == nil {
+		if !block {
+			return
+		}
+		gopark(nil, nil, waitReasonChanReceiveNilChan, traceEvGoStop, 2)
+		throw("unreachable")
+    }
+    // ...
+    lock(&c.lock)
+
+	if c.closed != 0 && c.qcount == 0 {
+		if raceenabled {
+			raceacquire(c.raceaddr())
+		}
+		unlock(&c.lock)
+		if ep != nil {
+			typedmemclr(c.elemtype, ep)
+		}
+		return true, false
+	}
+
+	if sg := c.sendq.dequeue(); sg != nil {
+		// Found a waiting sender. If buffer is size 0, receive value
+		// directly from sender. Otherwise, receive from head of queue
+		// and add sender's value to the tail of the queue (both map to
+		// the same buffer slot because the queue is full).
+		recv(c, sg, ep, func() { unlock(&c.lock) }, 3)
+		return true, true
+	}
+
+	if c.qcount > 0 {
+        qp := chanbuf(c, c.recvx)
+        //...
+        if ep != nil {
+			typedmemmove(c.elemtype, ep, qp)
+		}
+		typedmemclr(c.elemtype, qp)
+		c.recvx++
+		if c.recvx == c.dataqsiz {
+			c.recvx = 0
+		}
+		c.qcount--
+		unlock(&c.lock)
+		return true, true
+    }
+    // ...
+    // no sender available: block on this channel.
+	gp := getg()
+	mysg := acquireSudog()
+	mysg.releasetime = 0
+	if t0 != 0 {
+		mysg.releasetime = -1
+	}
+	// No stack splits between assigning elem and enqueuing mysg
+	// on gp.waiting where copystack can find it.
+	mysg.elem = ep
+	mysg.waitlink = nil
+	gp.waiting = mysg
+	mysg.g = gp
+	mysg.isSelect = false
+	mysg.c = c
+	gp.param = nil
+	c.recvq.enqueue(mysg)
+    goparkunlock(&c.lock, waitReasonChanReceive, traceEvGoBlockRecv, 3)
+    // ...
+}
+```
+
+### Select
+
+Объединение нескольких каналов.
+
+```go
+ch := make(chan int, 5)
+chs := make(chan string, 5)
+select {
+    case msg := <- ch:
+        fmt.Println("receive message", msg)
+    case msgs := <- chs:
+        fmt.Println("receive message", msgs)
+    default:
+        fmt.Println("no message received")
+}
+```
+
+Операции взаимно исключающие. Значит, нам нужно использовать блокировку всех используемых в селекте каналов. Блокировки приобретаются в зависимости от текущего кейса, а это значит что каналы блокируются не одновременно.
+
+```
+sellock(scases, lockorder)
+```
+
+Каждый `scase` в массиве `scases` это структура, которая содержит данные по операции в текущем кейсе и канал, для которого эта операция будет выполнятся.
+
+```go
+type scase struct {
+    c           *hchan
+    elem        unsafe.Pointer
+    kind        uint16
+    pc          uintptr
+    releasetime int64
+}
+```
+
+`kind` это тип операции в кейсе и он может быть `CaseRecv`, `CaseSend` и `CaseDefault`.
+
+Порядок опроса расчитывается так чтобы задействовать каналы в псевдо случайном порядке. После этого каналы опрашиваются в расчитаном порядке. То как в каком порядке вы напишете кейсы в программе не имеет значения.
+
+Генерация порядка опроса:
+
+```go
+for i := 1; i < ncases; i++ {
+    j := fastrandn(uint32(i+1))
+    pollorder[i] = pollorder[j]
+    pollorder[j] = uint16(i)
+}
+```
+
+Непосредственно проход по очереди опроса:
+
+```go
+for i := 0; i < ncases; i++ {
+    casi = int(pollorder[i])
+    cas = &scases[casi]
+    c = cas.c
+
+    switch cas.kind {
+    case caseNil:
+        continue
+
+    case caseRecv:
+        sg = c.sendq.dequeue()
+        if sg != nil {
+            goto recv
+        }
+        if c.qcount > 0 {
+            goto bufrecv
+        }
+        if c.closed != 0 {
+            goto rclose
+        }
+
+    case caseSend:
+        if raceenabled {
+            racereadpc(c.raceaddr(), cas.pc, chansendpc)
+        }
+        if c.closed != 0 {
+            goto sclose
+        }
+        sg = c.recvq.dequeue()
+        if sg != nil {
+            goto send
+        }
+        if c.qcount < c.dataqsiz {
+            goto bufsend
+        }
+
+    case caseDefault:
+        dfli = casi
+        dfl = cas
+    }
+}
+```
+
+`select` может сработать без блокировки если в канале еть данные. Даже без прохода по всем каналам.
+
+Если нет ни одного готового канала и кейса `default` то горутина `g` блокируется попадает в очередь доступности одного из каналов.
+
+```go
+gp = getg()
+// ...
+for _, casei := range lockorder {
+    casi = int(casei)
+    cas = &scases[casi]
+    if cas.kind == caseNil {
+        continue
+    }
+    c = cas.c
+    sg := acquireSudog()
+    sg.g = gp
+    sg.isSelect = true
+    // ...
+    switch cas.kind {
+    case caseRecv:
+        c.recvq.enqueue(sg)
+
+    case caseSend:
+        c.sendq.enqueue(sg)
+    }
+}
+```
+
+Поле `ag.isSelect` указывает что горутина участвует в селекте
+
+Операции получения, отправки и закрытия в селекте аналогичны обычным операциям получения, отправки и закрытия.
+
+### Заключение
+
+Каналы это очень мощный и интересный механизм в Go. Но чтобы правильно их использовать нужно знать как они устроены. Надеюсь что в этой статье удалось опиать базовые принципы работы каналов.
