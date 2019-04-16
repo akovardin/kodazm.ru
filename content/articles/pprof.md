@@ -39,3 +39,7 @@ go tool pprof -http=:8080 http://127.0.0.1:2112/debug/pprof/profile
 ```
 
 Флаг -http=:8080 запускает веб-интерфейс на 8080 порту.
+
+Список горутин:
+
+http://mcalc03.rtty.in/debug/pprof/goroutine?debug=1
