@@ -2,7 +2,6 @@
 date = "2019-11-24T12:58:12+03:00"
 draft = false
 title = "Пишем простой балансировщик нагрузки на Go"
-
 +++
 
 [Перевод Let's Create a Simple Load Balancer With Go](https://kasvith.github.io/posts/lets-create-a-simple-lb-go/).
