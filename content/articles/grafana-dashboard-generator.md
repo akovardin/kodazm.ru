@@ -4,6 +4,10 @@ draft = true
 title = "Генерация бордов для графаны"
 +++
 
+Статья про графики
+
+<!--more-->
+
 ## Ссылки
 
 * [rafana-dash-gen](https://github.com/uber/grafana-dash-gen) - Генерация на JS от uber
