@@ -6,7 +6,7 @@ title = "Бесплатные и автоматические SSL сертифи
 
 +++
 
-![](/img/ssl/ssl-title.png)
+![](/img/ssl/main.png)
 
 Перевод статьи "[Free and Automated SSL Certificates with Go](https://goenning.net/2017/11/08/free-and-automated-ssl-certificates-with-go/)"
 

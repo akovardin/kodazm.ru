@@ -4,6 +4,8 @@ draft = false
 title = "Погружаемся в каналы"
 +++
 
+![](/img/channels/main.png)
+
 Перевод статьи "[Diving Deep Into The Golang Channels](https://codeburst.io/diving-deep-into-the-golang-channels-549fd4ed21a8)".
 
 В этой статье поговорим о реализации каналов в Go и связанных с ними операциях.
@@ -34,8 +36,8 @@ func main() {
     time.Sleep(time.Second * 1)
 }
 ```
-![](/img/chanels/1.jpeg)
-![](/img/chanels/2.jpeg)
+![](/img/channels/1.jpeg)
+![](/img/channels/2.jpeg)
 
 Горутины блокируются на каналах до получения сообщения из канала. Канал должен уметь разблокировать рутины.
 
@@ -226,7 +228,7 @@ chan int {
 
 По сути `recvq` и `sendq` это связанные списки, которые работают как показано на картинке:
 
-![](/img/chanels/3.jpeg)
+![](/img/channels/3.jpeg)
 
 Эти структуры играют важную роль в работе каналов. Давайте разберемся, что происходит при отправке данных в канал.
 
@@ -466,7 +468,7 @@ printUser goRoutine called &{Ankur 25}
 &{Anand 100}
 ```
 
-![](/img/chanels/4.jpeg)
+![](/img/channels/4.jpeg)
 
 ### Операции чтения из канала
 
