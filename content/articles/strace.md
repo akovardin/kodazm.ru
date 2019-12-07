@@ -4,13 +4,15 @@ draft = false
 title = "Strace в 60 строчек код"
 +++
 
-![](/img/syscall/title.png)
+![](/img/strace/main.png)
 
 Перевод статьи Liz Rice "[Strace in 60 lines of Go](https://hackernoon.com/strace-in-60-lines-of-go-b4b76e3ecd64)".
 
 Эта статья написана по мотивам моего доклада "[A Go Programmer’s Guide to Syscalls](https://gophercon.com/speakers/27)". Вы можете посмотреть код [тут](http://github.com/lizrice/strace-from-scratch).
 
 Чтобы объяснить некоторые моменты работы [линуксовского ptrace](http://man7.org/linux/man-pages/man2/ptrace.2.html) я решила написать свою базовую реализацию [strace](http://man7.org/linux/man-pages/man1/strace.1.html). И в этой статье я расскажу, как этот самодельный strace работает. Если у вас есть время, то можете посмотреть видео того самого доклада:
+
+<!--more-->
 
 <iframe width="935" height="630" src="https://www.youtube.com/embed/01w7viEZzXQ?start=11" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
