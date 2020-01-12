@@ -1,5 +1,5 @@
 +++
-date = "2018-02-30"
+date = "2018-02-30T12:00:00+03:00"
 title = "Продуктивность и реклама"
 slug = "productivity-adn-ads"
 categories = [ "Кейсы" ]
