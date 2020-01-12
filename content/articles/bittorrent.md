@@ -9,7 +9,7 @@ tags = ["golang", "torrent", "bittorrent"]
 
 Перевод "[Building a BitTorrent client from the ground up in Go](https://blog.jse.li/posts/torrent/)"
 
-tl;dr: Что происходит с момента визита на thepiratebay и появлением mp3 файла на вашем компьютере? В этом посте мы реализуем BitTorrent протокол на уровне, достаточным для скачивания образа Debian. Можете сразу [посмотреть исходный код](https://github.com/veggiedefender/torrent-client/) и [пропустить](https://blog.jse.li/posts/torrent#putting-it-all-together) все подробные объяснения.
+Что происходит с момента визита на thepiratebay и появлением mp3 файла на вашем компьютере? В этом посте мы реализуем BitTorrent протокол на достаточном для скачивания образа Debian уровне. Можете сразу посмотреть исходный код и пропустить все подробные объяснения. Можете начинать с [исходного кода](https://github.com/veggiedefender/torrent-client/) и потом переходить к подробным объяснениям.
 
 <!--more-->
 
