@@ -1,5 +1,5 @@
 +++
-date = "2020-01-11T12:00:01+03:00"
+date = "2020-01-12T12:00:00+03:00"
 draft = false
 title = "Пишем свой BitTorrent клиент на Go"
 tags = ["golang", "torrent", "bittorrent"]
