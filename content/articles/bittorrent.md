@@ -34,7 +34,7 @@ BitTorrent это протокол для скачивания файлов и �
 В .torrent файле содержится информация о трекере и о самом файле, который нужно скачать. Для начала скачивания этого достаточно. Дебиановский .torrent файл выглядит так:
 
 ```
-d8:announce41:http://bttracker.debian.org:6969/announce7:comment35:"Debian CD from cdimage.debian.org"13:creation datei1573903810e9:httpseedsl145:https://cdimage.debian.org/cdimage/release/10.2.0//srv/cdbuilder.debian.org/dst/deb-cd/weekly-builds/amd64/iso-cd/debian-10.2.0-amd64-netinst.iso145:https://cdimage.debian.org/cdimage/archive/10.2.0//srv/cdbuilder.debian.org/dst/deb-cd/weekly-builds/amd64/iso-cd/debian-10.2.0-amd64-netinst.isoe4:infod6:lengthi351272960e4:name31:debian-10.2.0-amd64-netinst.iso12:piece lengthi262144e6:pieces26800:�����PS�^�� (binary blob of the hashes of each piece)ee
+d8:announce41:http://bttracker.debian.org:6969/announce7:comment35:"Debian CD from cdimage.debian.org"13:creation datei1573903810e9:httpseedsl145:https://cdimage.debian.org/cdimage/release/10.2.0//srv/cdbuilder.debian.org/dst/deb-cd/weekly-builds/amd64/iso-cd/debian-10.2.0-amd64-netinst.iso145:https://cdimage.debian.org/cdimage/archive/10.2.0//srv/cdbuilder.debian.org/dst/deb-cd/weekly-builds/amd64/iso-cd/debian-10.2.0-amd64-netinst.isoe4:infod6:lengthi351272960e4:name31:debian-10.2.0-amd64-netinst.iso12:piece lengthi262144e6:pieces26800:(binary blob of the hashes of each piece)ee
 ```
 
 Данные в .torrent файле закодированы в формате Bencode и нам нужно его декодировать.
@@ -60,7 +60,7 @@ d
       12:piece length
         i262144e
       6:pieces
-        26800:�����PS�^�� (binary blob of the hashes of each piece)
+        26800: (binary blob of the hashes of each piece)
     e
 e
 ```
@@ -122,7 +122,7 @@ func (bto *bencodeTorrent) toTorrentFile() (*TorrentFile, error) {
 }
 ```
 
-### Получаем peer'ов чз трекер
+### Получаем peer'ов через трекер
 
 Теперь у нас есть информация о файле и трекере, давайте сделаем запрос на сервер чтобы объявить(announce) о нашем присутствии как peer'a и получить список других peer'ов. Для этого нужно сделать GET запрос на `announce` URL трекера с нужными параметрами:
 
