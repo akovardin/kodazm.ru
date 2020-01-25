@@ -1,5 +1,5 @@
 +++
-date = "2020-25-11T11:00:00+03:00"
+date = "2020-01-25T11:00:00+03:00"
 draft = false
 title = "Инлайнинг defer"
 tags = ["go", "defer", "JBD"]
