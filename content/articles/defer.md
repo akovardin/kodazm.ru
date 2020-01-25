@@ -5,7 +5,7 @@ title = "Инлайнинг defer"
 tags = ["go", "defer", "JBD"]
 +++
 
-![](/img/bittorrent/main.png)
+![](/img/defer/main.png)
 
 Перевод "[Inlined defers in Go](https://rakyll.org/inlined-defers/)".
 
