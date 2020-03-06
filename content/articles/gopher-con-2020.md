@@ -13,7 +13,7 @@ GopherCon Russia 2020 все ближе. Прошлая кнфа была про
 
 <!--more-->
 
-Сейчас билет стоит 12000₽, все подробности и регистрация на сайте: https://www.gophercon-russia.ru/
+Сейчас билет стоит 12000₽, все подробности и регистрация на сайте: [www.gophercon-russia.ru](https://www.gophercon-russia.ru/)
 
 ![](/img/gopher-con-2020/1.JPG)
 
