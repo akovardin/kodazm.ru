@@ -17,7 +17,7 @@ GopherCon Russia 2020 все ближе. Прошлая кнфа была про
 
 ![](/img/gopher-con-2020/1.JPG)
 
-![](/img/gopher-con-2020/2.JPG)
+![](/img/gopher-con-2020/2.png)
 
 ![](/img/gopher-con-2020/3.JPG)
 
