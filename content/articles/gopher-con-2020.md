@@ -1,6 +1,6 @@
 +++
 date = "2020-03-06T11:00:00+03:00"
-draft = true
+draft = false
 title = "GopherCon Russia 2020"
 tags = ["golang", "conf"]
 +++
