@@ -1,0 +1,1 @@
+https://ieftimov.com/post/testing-in-go-golden-files/
