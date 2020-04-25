@@ -15,3 +15,18 @@ Core Data - фреймворк для работы с базой дынных в
 
 ![](/img/core-data/create.png)
 
+Первым делом откроем файл `Memo.xcdatamodeld` и добавим новую сущность `Todo`
+
+![](/img/core-data/generate0.png)
+
+Генерировать код в ручную не обязательно. Можно оставить значение `Class Definition` в поле Codegen и успокоится. Но я выберу `Manual/None` - это позволит сгенерировать файлы в папке проекта и посмотреть что там будет.
+
+![](/img/core-data/generate4.png)
+
+Теперь генерируем файлы
+
+![](/img/core-data/generate1.png)
+
+![](/img/core-data/generate2.png)
+
+![](/img/core-data/generate3.png)
