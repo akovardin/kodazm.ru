@@ -523,10 +523,11 @@ func main() {
 
 ## Ссылки
 
+- [Исходнки к статье на GitHub](https://github.com/horechek/notifications-ios).
 - Официальная [документация по нотификациям](https://developer.apple.com/documentation/usernotifications).
 - [Приложение](https://github.com/onmyway133/PushNotifications) для тестирования нотификаций.
 - Курс на [swiftbook.ru](https://swiftbook.ru/content/23-index/).
-- [Push Notifications Tutorial: Getting Started](https://www.raywenderlich.com/8164-push-notifications-tutorial-getting-started)
-- Кастомное отображение нотификаций с [помощью расширений](https://developer.apple.com/documentation/usernotificationsui/customizing_the_appearance_of_notifications)
-- [APNS/2](https://github.com/sideshow/apns2) - либа для отправки пуш-уведомлений
+- [Push Notifications Tutorial: Getting Started](https://www.raywenderlich.com/8164-push-notifications-tutorial-getting-started).
+- Кастомное отображение нотификаций с [помощью расширений](https://developer.apple.com/documentation/usernotificationsui/customizing_the_appearance_of_notifications).
+- [APNS/2](https://github.com/sideshow/apns2) - либа для отправки пуш-уведомлений.
 
