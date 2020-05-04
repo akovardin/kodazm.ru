@@ -2,7 +2,7 @@
 date = "2020-04-04T11:00:00+03:00"
 draft = false
 title = "iOS Нотификации. Подписка и рассылка"
-tags = ["ios", "swift"]
+tags = ["ios", "swift", "go"]
 +++
 
 ![](/img/notifications/main.png)
@@ -528,4 +528,5 @@ func main() {
 - Курс на [swiftbook.ru](https://swiftbook.ru/content/23-index/).
 - [Push Notifications Tutorial: Getting Started](https://www.raywenderlich.com/8164-push-notifications-tutorial-getting-started)
 - Кастомное отображение нотификаций с [помощью расширений](https://developer.apple.com/documentation/usernotificationsui/customizing_the_appearance_of_notifications)
+- [APNS/2](https://github.com/sideshow/apns2) - либа для отправки пуш-уведомлений
 
