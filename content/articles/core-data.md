@@ -1,5 +1,5 @@
 +++
-date = "2020-04-26T12:00:00+03:00"
+date = "2020-03-26T12:00:00+03:00"
 draft = false
 title = "Core Data"
 tags = ["ios", "swift", "swiftui"]
