@@ -1,7 +1,7 @@
 +++
 date = "2020-06-07T11:00:00+03:00"
 draft = false
-title = "MVVM архитеутура для iOS с Combine и SwiftUI"
+title = "MVVM для iOS с Combine и SwiftUI"
 tags = ["ios", "swift", "swiftui", "combine"]
 +++
 
