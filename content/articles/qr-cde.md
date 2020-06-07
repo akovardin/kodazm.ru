@@ -1,6 +1,6 @@
 +++
 date = "2020-05-17T11:00:00+03:00"
-draft = false
+draft = true
 title = "QR коды для чайников"
 tags = ["ios", "android", "go"]
 +++
