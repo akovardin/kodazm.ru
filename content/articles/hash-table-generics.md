@@ -1,6 +1,6 @@
 +++
 date = "2020-07-22T11:00:00+03:00"
-draft = true
+draft = false
 title = "Пишем хештейбл с дженериками"
 tags = ["golang"]
 +++
