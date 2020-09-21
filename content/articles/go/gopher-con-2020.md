@@ -5,7 +5,7 @@ title = "GopherCon Russia 2020"
 tags = ["golang", "conf"]
 +++
 
-![](/img/gopher-con-2020/main.png)
+![](/img/gopher-con-2020/main.png?2)
 
 GopherCon Russia 2020 все ближе. Прошлая кнфа была просто шикарная, эта будет не хуже.
 

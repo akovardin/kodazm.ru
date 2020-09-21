@@ -5,7 +5,7 @@ title = "Дебаг для Alamofire запросов"
 tags = ["ios", "swift", "alamofire"]
 +++
 
-![](/img/alamofire-debug/main.png)
+![](/img/alamofire-debug/main.png?v=2)
 
 Alamofire - библиотека, для работы с HTTP написанная на свифте. Она упрощает жизнь разработчикам в разы. 
 
