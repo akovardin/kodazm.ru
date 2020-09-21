@@ -70,3 +70,11 @@ div.data {
 	margin-top: 3rem;
 	margin-bottom: 3rem;
 }
+
+a {
+	color: #444; 
+}
+
+a:hover, a:focus {
+	color: #000; 
+}
