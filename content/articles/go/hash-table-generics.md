@@ -5,7 +5,7 @@ title = "Пишем хештейбл с дженериками"
 tags = ["golang"]
 +++
 
-![](/img/hashtable/main.png)
+![](/img/hashtable/main.png?1)
 
 Перевод статьи "[Go generics draft design: building a hashtable](https://mdlayher.com/blog/go-generics-draft-design-building-a-hashtable/)".
 
