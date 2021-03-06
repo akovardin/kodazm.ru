@@ -3,8 +3,7 @@
 <div class="row">
     <div class="large-8 columns">
 	    	
-	    
-    	{{ range (first 6  (where .Data.Pages "Type" "articles"))  }}
+    	{{ range (first 6  (where .Site.RegularPages "Type" "articles"))  }}
     		<div class="item">
 	    		<h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
 		        {{ .Summary }}
