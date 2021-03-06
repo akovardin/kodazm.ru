@@ -19,4 +19,8 @@ server {
     location / {
         root   /var/www/kodazm/www/public;
     }
+
+    location ~ /.well-known {
+        allow all;
+    }
 }
