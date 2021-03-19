@@ -198,37 +198,43 @@ uglyURLs = false
     #     pre = "internal"
     #     post = "home"
     [[menu.main]]
+        url = "/projects/"
+        name = "Проекты"
+        weight = 2
+        pre = "internal"
+        post = "heart"
+    [[menu.main]]
         url = "/articles/"
         name = "Статьи"
-        weight = 2
+        weight = 3
         pre = "internal"
         post = "archive"
     # [[menu.main]]
     #     url = "/categories/"
     #     name = "Categories"
-    #     weight = 3
+    #     weight = 4
     #     pre = "internal"
     #     post = "th"
     [[menu.main]]
         url = "/tags/"
         name = "Теги"
-        weight = 4
+        weight = 5
         pre = "internal"
         post = "tags"
     # [[menu.main]]
     #     url = "/about/"
     #     name = "About"
-    #     weight = 5
+    #     weight = 6
     #     pre = "internal"
     #     post = "user-circle"
     [[menu.main]]
-        weight = 6
+        weight = 7
         identifier = "theme-switcher"
     [[menu.main]]
-        weight = 7
+        weight = 8
         identifier = "lang-switcher"
     [[menu.main]]
-        weight = 8
+        weight = 9
         identifier = "search"
         post = "search"
 

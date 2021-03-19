@@ -5,7 +5,7 @@ other = "…"
 other = ": "
 
 [minute]
-one = "min"
+one = "минута"
 other = "минуты"
 few = "минут"
 many = "минут"
