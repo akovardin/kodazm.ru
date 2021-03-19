@@ -1,6 +1,6 @@
 +++
 date = "2021-03-05T15:20:00+03:00"
-draft = false
+draft = true
 title = "Разбираемся с дженериками"
 tags = ["golang", "generics"]
 
