@@ -43,13 +43,13 @@
     <meta name="description" content="{{ $description }}" />
 
     <!-- Favicon, Icons, Web App -->
-    {{- $favicon := "favicon.ico" -}}
+    {{- $favicon := "icons/icon.png" -}}
     {{- $safariMaskIcon := "icons/safari-pinned-tab.svg" -}}
     {{- $safariMaskColor := .Site.Params.safariMaskColor -}}
-    {{- $appleTouchIcon := "icons/apple-touch-icon.png" -}}
+    {{- $appleTouchIcon := "icons/icon.png" -}}
     {{- $msApplicationStartURL := partial "utils/relative-url.html" (dict "$" . "filename" "") -}}
     {{- $msApplicationTileColor := .Site.Params.msApplicationTileColor -}}
-    {{- $msApplicationTileImage := partial "utils/relative-url.html" (dict "$" . "filename" "icons/mstile-150x150.png") -}}
+    {{- $msApplicationTileImage := partial "utils/relative-url.html" (dict "$" . "filename" "icons/icon.png") -}}
     {{- $manifest := "manifest.json" -}}
     <link rel="shortcut icon" href="{{ $favicon | relURL }}" type="image/x-icon" />
     <link rel="mask-icon" href="{{ $safariMaskIcon | relURL }}" color="{{ $safariMaskColor }}" />
